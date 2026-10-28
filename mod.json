@@ -22,7 +22,9 @@
       "name": "Access key",
       "description": "MationBuild key issued by the project maintainer. Used to unlock the editor auto-decoration pass.",
       "type": "string",
-      "default": ""
+      "default": "",
+      "match": "^MB-[A-HJ-NP-Z2-9]{6}-[A-HJ-NP-Z2-9]{6}-[A-HJ-NP-Z2-9]{6}$",
+      "filter": "MB-ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
     }
   },
   "dependencies": []
