@@ -25,6 +25,17 @@
       "default": "",
       "match": "^MB-[A-HJ-NP-Z2-9]{6}-[A-HJ-NP-Z2-9]{6}-[A-HJ-NP-Z2-9]{6}$",
       "filter": "MB-ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+    },
+    "style": {
+      "name": "Decoration style",
+      "description": "Choose the accent pattern used by the in-editor auto-decoration pass.",
+      "type": "string",
+      "default": "Tech",
+      "one-of": [
+        "Tech",
+        "Minimal",
+        "Geometric"
+      ]
     }
   },
   "dependencies": []
