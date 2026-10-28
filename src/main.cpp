@@ -111,14 +111,17 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
             auto target = typeinfo_cast<GameObject*>(targets->objectAtIndex(i));
             if (!target) continue;
 
-            // Geometry Dash 2.2081 object IDs 1764 and 1765 are Tiny Circle and Tiny Cross.
+            // Geometry Dash 2.2081 object IDs 1764–1767 are tiny visual accents:
+            // Circle, Cross, Triangle, and Rectangle.
             const struct Accent {
                 int id;
                 CCPoint offset;
                 float scale;
             } accents[] = {
                 {1764, {-10.f, 10.f}, 0.35f},
-                {1765, { 10.f,-10.f}, 0.35f}
+                {1765, { 10.f,-10.f}, 0.35f},
+                {1766, {-10.f,-10.f}, 0.35f},
+                {1767, { 10.f, 10.f}, 0.35f}
             };
 
             for (auto const& accent : accents) {
