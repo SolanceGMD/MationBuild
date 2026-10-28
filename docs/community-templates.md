@@ -6,9 +6,28 @@ MationBuild is designed to support community-authored decoration packs, includin
 
 The current mod has a first selection-based accent pass, but it does **not yet parse or apply Antiprime's native template files**. Before native compatibility can be implemented safely, we need a representative template export and its format/version. Do not assume a template ID, website URL, or level ID alone contains enough data to import a template.
 
-## Proposed portable manifest
+## Portable template format (implemented)
 
-Community submissions should provide metadata and point to the actual template payload. The service currently stores metadata for moderation, not the payload itself. A future importer should validate the payload schema and enforce object-count limits before changing a level.
+Community submissions should provide metadata and point to a downloadable JSON payload. The service stores metadata for moderation, not the payload itself. In Geometry Dash's editor, use the **Import** button and select the downloaded JSON file; select one or more anchor objects first. Each template object's x/y values are offsets from each selected object's position.
+
+The importer accepts `mationbuild-json`, schema version 1, for Geometry Dash `2.2081`. To keep imports safe, the current format only allows the five tiny decorative accent IDs 1764–1768, caps templates at 100 objects, caps files at 500 KB, limits anchors and total placements, and validates coordinate/scale/rotation ranges. It does not allow arbitrary triggers or gameplay objects.
+
+Example payload:
+```json
+{
+  "format": "mationbuild-json",
+  "schema_version": 1,
+  "game_version": "2.2081",
+  "objects": [
+    { "id": 1764, "x": -10, "y": 10, "scale": 0.35, "rotation": 0 },
+    { "id": 1765, "x": 10, "y": -10, "scale": 0.35, "rotation": 0 },
+    { "id": 1766, "x": -10, "y": -10, "scale": 0.35, "rotation": 0 },
+    { "id": 1767, "x": 10, "y": 10, "scale": 0.35, "rotation": 0 }
+  ]
+}
+```
+
+The community catalog currently stores metadata and HTTPS source/download links. Moderators should verify that the payload follows this schema and that the submitter has permission to share it before publishing.
 
 Example manifest:
 ```json
