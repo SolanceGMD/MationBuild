@@ -61,5 +61,5 @@ Do not run a CLI command on a shared machine. Clear the environment variable whe
 - Database-backed fixed-window rate limits: verification 20/minute per observed client address; submissions 5/hour; catalog reads 120/minute; admin actions are also throttled. The function fails closed if the rate-limit store is unavailable.
 - The rate limiter hashes the observed address before storage. Proxy header behavior should be reviewed before relying on it as a hard anti-abuse boundary; consider adding a managed WAF/Turnstile if public traffic grows.
 - Community submissions are metadata only and remain pending until reviewed. The importer must never execute arbitrary downloaded content.
-- This is not yet a production-ready paid licensing service. There is no device binding or automated abuse monitoring. The browser verification endpoint is not equivalent to in-game key enforcement.
+- This is not yet a production-ready paid licensing service. The in-game editor action now checks keys server-side before applying its first accent pass, but there is no device binding, activation cap enforcement, or automated abuse monitoring. Keys are stored in the local Geode settings file, so do not share them.
 - Review Supabase security/performance advisors and monitor usage/billing before public launch.
