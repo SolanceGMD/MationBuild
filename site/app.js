@@ -1,6 +1,8 @@
-/* MationBuild access portal. Public endpoint only; no secret keys belong in this file. */
+/* MationBuild access portal. The publishable key is intended for public clients;
+   never place a service-role/secret key or the admin token in this file. */
 const CONFIG = Object.freeze({
-  verifyEndpoint: "https://gfgmknlxzdfnjdpxetdz.supabase.co/functions/v1/mationbuild-api"
+  verifyEndpoint: "https://gfgmknlxzdfnjdpxetdz.supabase.co/functions/v1/mationbuild-api",
+  publishableKey: "sb_publishable_w0puiuo49MRiVpf4sQWj9Q_67R-YnCO"
 });
 const form = document.querySelector("#verify-form");
 const keyInput = document.querySelector("#key");
@@ -18,7 +20,10 @@ form.addEventListener("submit", async (event) => {
   try {
     const response = await fetch(CONFIG.verifyEndpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": CONFIG.publishableKey
+      },
       body: JSON.stringify({ action: "verify", key })
     });
     const result = await response.json().catch(() => ({}));
