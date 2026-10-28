@@ -1,15 +1,16 @@
 # MationBuild
+
 **By Solance**
 
-MationBuild is a Geometry Dash editor companion project focused on accelerating level decoration with reusable styles and community-shared templates. The goal is to help creators iterate faster while retaining control over the final design.
+MationBuild is a Geometry Dash editor companion for creating repeatable block-decoration frames and applying reusable community-authored decoration packs. It is designed to speed up repetitive detailing while leaving final placement and artistic decisions with the creator.
 
-## Planned capabilities
-- Style-driven decoration workflows and configurable density.
-- Community template discovery and import, including compatible user-provided template files.
-- Access-key verification for gated features.
-- A curated template catalog with attribution, version metadata, and reporting.
-- Reproducible builds through GitHub Actions.
+## Current features
+- Tech, Minimal, and Geometric layered decoration presets.
+- Access-key verification for editor tools.
+- Validated `mationbuild-json` v1 template import for Geometry Dash 2.2081.
+- Windows builds and release artifacts through GitHub Actions.
 
-MationBuild is an independent community project and is not affiliated with RobTop Games or the creators of third-party template packs. Third-party templates remain the property of their respective creators; only import templates you have permission to use.
+## Compatibility notes
+The portable importer supports the documented MationBuild JSON format. Native Antiprime AutoBuild template compatibility is not implemented until an authorized sample export and its format can be verified. Please test builds in a backed-up level before using them on important projects.
 
-This repository is under active development. See the README for current implementation and deployment status.
+MationBuild is an independent community project and is not affiliated with RobTop Games or Antiprime. Only import third-party templates you have permission to use.
