@@ -4,7 +4,7 @@ MationBuild is designed to support community-authored decoration packs, includin
 
 ## What compatibility means today
 
-The current mod build is an early entry-point scaffold; it does **not yet parse or apply Antiprime's native template files**. Before native compatibility can be implemented safely, we need a representative template export and its format/version. Do not assume a template ID, website URL, or level ID alone contains enough data to import a template.
+The current mod has a first selection-based accent pass, but it does **not yet parse or apply Antiprime's native template files**. Before native compatibility can be implemented safely, we need a representative template export and its format/version. Do not assume a template ID, website URL, or level ID alone contains enough data to import a template.
 
 ## Proposed portable manifest
 
