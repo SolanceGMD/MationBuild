@@ -300,7 +300,7 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
 
             // Explicit decorative-only allowlist; gameplay objects and triggers are excluded.
             auto supportedId = id == 1753 || id == 1754 ||
-                (id >= 1758 && id <= 1764) || (id >= 1766 && id <= 1768);
+                (id >= 1758 && id <= 1768);
             if (!supportedId || !std::isfinite(x) || !std::isfinite(y) ||
                 !std::isfinite(scale) || !std::isfinite(rotation) ||
                 std::abs(x) > 3000.0 || std::abs(y) > 3000.0 ||
