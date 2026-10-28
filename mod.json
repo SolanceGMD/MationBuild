@@ -17,6 +17,13 @@
     "editor",
     "enhancement"
   ],
-  "settings": {},
+  "settings": {
+    "access-key": {
+      "name": "Access key",
+      "description": "MationBuild key issued by the project maintainer. Used to unlock the editor auto-decoration pass.",
+      "type": "string",
+      "default": ""
+    }
+  },
   "dependencies": []
 }
