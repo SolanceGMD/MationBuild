@@ -8,9 +8,9 @@
   },
   "id": "solance.mationbuild",
   "name": "MationBuild",
-  "version": "v0.1.0",
+  "version": "v0.2.0",
   "developer": "Solance",
-  "description": "A style-driven Geometry Dash auto-decoration toolkit with community template support and key-gated premium features.",
+  "description": "A Geometry Dash editor toolkit with layered block-decoration presets, validated community templates, and access-key verification.",
   "repository": "https://github.com/SolanceGMD/MationBuild",
   "issues": {
     "url": "https://github.com/SolanceGMD/MationBuild/issues"
@@ -22,7 +22,7 @@
   "settings": {
     "access-key": {
       "name": "Access key",
-      "description": "MationBuild key issued by the project maintainer. Used to unlock the editor auto-decoration pass.",
+      "description": "MationBuild access key used to unlock decoration and template import.",
       "type": "string",
       "default": "",
       "match": "^MB-[A-HJ-NP-Z2-9]{6}-[A-HJ-NP-Z2-9]{6}-[A-HJ-NP-Z2-9]{6}$",
@@ -30,7 +30,7 @@
     },
     "style": {
       "name": "Decoration style",
-      "description": "Choose the accent pattern used by the in-editor auto-decoration pass.",
+      "description": "Choose a layered block-frame preset generated from native decorative objects.",
       "type": "string",
       "default": "Tech",
       "one-of": [
