@@ -20,5 +20,10 @@ jobs:
           test -s site/styles.css
           test -s site/app.js
           test -s MationBuild.ico
+      - name: Validate JavaScript syntax and mod metadata
+        run: |
+          node --check site/app.js
+          node --check scripts/mationbuild-admin.mjs
+          node -e "const m = require('./mod.json'); if (m.gd.win !== '2.2081') process.exit(1); console.log('mod.json OK for Geometry Dash', m.gd.win)"
       - name: Check for whitespace errors
         run: git diff --check
