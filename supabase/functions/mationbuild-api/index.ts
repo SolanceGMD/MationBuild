@@ -58,7 +58,7 @@ Deno.serve(async req => {
   const url = new URL(req.url);
   const db = dbClient();
 
-  if (req.method === "GET" && url.pathname.endsWith("/templates")) {
+  if (req.method === "GET") {
     if (!await rateLimit(db, req, "catalog", 120, 60)) return reply({ error: "rate_limited" }, 429);
     const { data, error } = await db.from("mationbuild_templates")
       .select("slug,title,description,author_name,source_url,download_url,game_version,schema_version,tags,created_at")
@@ -159,7 +159,11 @@ Deno.serve(async req => {
     const source = typeof body.source_url === "string" ? body.source_url.trim() : "";
     const download = typeof body.download_url === "string" ? body.download_url.trim() : "";
     const slug = typeof body.slug === "string" ? body.slug.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "").slice(0, 80) : "";
-    if (title.length < 3 || !author || !slug || !source.startsWith("https://") || !download.startsWith("https://")) {
+    const isHttpsUrl = (value: string) => {
+      try { const parsed = new URL(value); return parsed.protocol === "https:" && Boolean(parsed.hostname); }
+      catch { return false; }
+    };
+    if (title.length < 3 || !author || !slug || !isHttpsUrl(source) || !isHttpsUrl(download)) {
       return reply({ error: "invalid_template_metadata" }, 400);
     }
     const { error } = await db.from("mationbuild_templates").insert({
