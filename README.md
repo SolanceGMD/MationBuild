@@ -4,7 +4,7 @@
 
 ## Status — read before using
 
-The repository now contains a first in-editor auto-decoration pass, a static access portal, and a deployed licensing/template API. In the editor, select up to 100 objects and use the MationBuild button; after server-side key verification it adds tiny-circle and tiny-cross accents near each selected object using the editor's paste/undo path. This is an intentionally small first pass, not feature parity with Antiprime AutoBuild. It still requires a successful build and in-game validation; native Antiprime template import is not implemented.
+The repository now contains a first in-editor auto-decoration pass, a static access portal, and a deployed licensing/template API. In the editor, select up to 100 objects and use the MationBuild button; after server-side key verification it adds small accents near each selected object using the editor's paste/undo path. Choose Tech, Minimal, or Geometric in the mod settings. This is an initial style-based generator, not feature parity with Antiprime AutoBuild. It still requires a successful build and in-game validation; native Antiprime template import is not implemented.
 
 ## Project files
 
