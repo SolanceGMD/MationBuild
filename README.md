@@ -4,7 +4,7 @@
 
 ## Status — read before using
 
-This repository now contains a **starter Geode mod**, a build workflow, a static access portal, and Supabase backend source. The initial in-game popup is only a scaffold. It does **not yet perform automatic decoration, validate keys inside the mod, import Antiprime-native templates, or produce a verified release build**. A CI run has been triggered, but do not treat the artifact as complete until that run succeeds and the resulting .geode is tested in-game.
+This repository contains a **starter Geode mod**, build workflow, static access portal, and a deployed Supabase starter backend. The initial in-game popup is only a scaffold. It does **not yet perform automatic decoration, validate keys inside the mod, import Antiprime-native templates, or produce a verified release build**. Do not treat a build artifact as complete until the CI run succeeds and the resulting `.geode` is tested in-game.
 
 ## Project files
 
@@ -28,11 +28,11 @@ Geode's official mod workflow and metadata requirements are documented in the [G
 3. The workflow publishes the `site/` directory when the relevant files change.
 4. The site URL appears under Settings → Pages.
 
-## Configure the licensing backend
+## Licensing backend
 
-The Supabase source is committed but is **not deployed**. A Supabase project must be linked before the SQL migration and Edge Function can be applied. Follow [supabase/README.md](supabase/README.md). Then set `verifyEndpoint` in `site/app.js` to the deployed function URL.
+A dedicated Supabase project is deployed in the TLAL organization on the free plan, in London (`eu-west-2`). The database migration is applied and the Edge Function is active. The access portal is configured to call the deployed verification endpoint. Project creation was quoted and approved at $0/month; future usage, add-ons, or plan changes could still incur costs, so monitor billing.
 
-Never place a Supabase service-role key or the admin token in browser code or source control. The current API is a starter implementation; production release needs abuse protection, a secure admin workflow, revocation controls, and tests.
+Follow [supabase/README.md](supabase/README.md) to configure the private admin token. Key issuance is not ready until that secret is set. Never place a Supabase service-role key or admin token in browser code or source control. The current API is a starter implementation; production release needs abuse protection, a secure admin workflow, revocation controls, and tests.
 
 ## Community templates and Antiprime
 
