@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0d14"><meta name="description" content="MationBuild — Geometry Dash auto-decoration toolkit and community template hub.">
+  <title>MationBuild — Build Portal</title><link rel="icon" href="./MationBuild.ico"><link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="nav"><a class="brand" href="./"><img src="./MationBuild.ico" alt="" width="34" height="34"><span>MATION<span class="accent">BUILD</span></span></a><span class="nav-tag">GEOMETRY DASH 2.2081</span></header>
+  <main>
+    <section class="hero"><div class="eyebrow"><span class="dot"></span> CREATOR TOOLKIT · COMMUNITY HUB</div><h1>Build better.<br><span class="gradient">Decorate smarter.</span></h1><p class="intro">MationBuild is an independent Geometry Dash creator project for access management and community decoration templates. The editor includes style presets and a portable template importer; native Antiprime template compatibility is still in development.</p><div class="hero-actions"><a class="button primary" href="#access">Verify access <span aria-hidden="true">↗</span></a><a class="button secondary" href="#templates">Explore templates</a><a class="button secondary" href="https://github.com/SolanceGMD/MationBuild">View source</a></div><div class="notice"><span class="notice-icon">i</span><span>Access keys are verified by the backend. Never share your key publicly. Community templates are shown only after moderation.</span></div></section>
+    <section class="features"><article><div class="feature-icon">✳</div><h3>Decoration workflow</h3><p>Apply Tech, Minimal, or Geometric accents to selected objects, or import a validated portable JSON template.</p></article><article><div class="feature-icon">⌁</div><h3>Access control</h3><p>Server-side key verification with expiry and revocation support.</p></article><article><div class="feature-icon">↗</div><h3>Community templates</h3><p>Browse published template metadata or submit a pack for review.</p></article></section>
+    <section class="access" id="access"><div><div class="eyebrow">MEMBER ACCESS</div><h2>Access portal</h2><p class="muted">Already have a key? Verify it here. The same key can unlock the editor tools after you enter it in Geode mod settings.</p></div>
+      <form id="verify-form"><label for="key">Access key</label><div class="input-row"><input id="key" name="key" type="password" placeholder="MB-XXXXXX-XXXXXX-XXXXXX" autocomplete="off" required minlength="8" maxlength="128"><button class="button primary" id="verify-button" type="submit">Verify key</button></div><p class="status" id="status" role="status" aria-live="polite"></p></form>
+      <details><summary>Need a key?</summary><p class="muted">Keys are currently issued by the project maintainer. Self-service key issuance is not enabled.</p></details>
+    </section>
+    <section class="templates" id="templates"><div class="section-heading"><div><div class="eyebrow">COMMUNITY LIBRARY</div><h2>Decoration templates</h2><p class="muted">Only approved submissions appear here. A listed URL is provided by the creator; inspect downloads before using them.</p><p class="sample-link">Sample packs: <a href="https://raw.githubusercontent.com/SolanceGMD/MationBuild/main/templates/tech-accent-pack.json" target="_blank" rel="noopener noreferrer">Tech</a> · <a href="https://raw.githubusercontent.com/SolanceGMD/MationBuild/main/templates/minimal-circles.json" target="_blank" rel="noopener noreferrer">Minimal</a> · <a href="https://raw.githubusercontent.com/SolanceGMD/MationBuild/main/templates/geometric-accent-pack.json" target="_blank" rel="noopener noreferrer">Geometric</a></p></div><button class="button secondary" id="refresh-templates" type="button">Refresh library</button></div><p class="status" id="templates-status" role="status" aria-live="polite">Loading community templates…</p><div class="template-grid" id="template-list"></div>
+      <details class="submit-panel"><summary>Submit a community template</summary><p class="muted">Submissions are metadata-only and stay pending until reviewed. For the current in-game importer, the download must be a mationbuild-json schema v1 payload for GD 2.2081 containing only approved tiny accent IDs 1764–1768. Provide HTTPS links and share only packs you have permission to redistribute.</p><form id="template-form" class="template-form">
+        <label for="template-title">Template name</label><input id="template-title" name="title" required minlength="3" maxlength="100" placeholder="Neon Edge Kit">
+        <label for="template-author">Creator name</label><input id="template-author" name="author_name" required maxlength="80" placeholder="Your creator name">
+        <label for="template-slug">Short ID</label><input id="template-slug" name="slug" required maxlength="80" pattern="[A-Za-z0-9-]+" placeholder="neon-edge-kit">
+        <label for="template-description">Description</label><textarea id="template-description" name="description" maxlength="1000" rows="3" placeholder="What does this pack contain?"></textarea>
+        <label for="template-source">Source page (HTTPS)</label><input id="template-source" name="source_url" type="url" required placeholder="https://…">
+        <label for="template-download">Download URL (HTTPS)</label><input id="template-download" name="download_url" type="url" required placeholder="https://…">
+        <label for="template-version">Geometry Dash version</label><input id="template-version" name="game_version" maxlength="32" value="2.2081">
+        <label for="template-tags">Tags (comma-separated)</label><input id="template-tags" name="tags" maxlength="300" placeholder="modern, glow, tech">
+        <button class="button primary" id="template-submit" type="submit">Submit for review</button><p class="status" id="template-submit-status" role="status" aria-live="polite"></p>
+      </form></details>
+    </section>
+    <footer><span>© <span id="year"></span> MationBuild · by Solance</span><span>Community project · Not affiliated with RobTop Games</span><a href="https://github.com/SolanceGMD/MationBuild">GitHub ↗</a></footer>
+  </main><script src="./app.js" defer></script>
+</body></html>
