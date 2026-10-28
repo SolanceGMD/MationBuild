@@ -1,0 +1,30 @@
+name: Build MationBuild Geode mod
+on:
+  push:
+    branches: [main]
+    paths: ["src/**", "mod.json", "CMakeLists.txt", "about.md", "changelog.md", ".github/workflows/geode-build.yml"]
+  pull_request:
+    paths: ["src/**", "mod.json", "CMakeLists.txt"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-windows:
+    name: Build Windows .geode
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Geode SDK
+        id: build
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          target: Win64
+          sdk: latest
+          path: .
+      - name: Upload .geode artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MationBuild-Windows
+          path: ${{ steps.build.outputs.build-output }}/*.geode
+          if-no-files-found: error
+          retention-days: 14
