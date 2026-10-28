@@ -9,7 +9,8 @@
  *   node scripts/mationbuild-admin.mjs moderate <slug> publish|reject|remove
  */
 const endpoint = process.env.MATIONBUILD_API_URL ?? "https://gfgmknlxzdfnjdpxetdz.supabase.co/functions/v1/mationbuild-api";
-const token = process.env.MATIONBUILD_ADMIN_TOKEN;\nconst publishableKey = "sb_publishable_w0puiuo49MRiVpf4sQWj9Q_67R-YnCO";
+const token = process.env.MATIONBUILD_ADMIN_TOKEN;
+const publishableKey = "sb_publishable_w0puiuo49MRiVpf4sQWj9Q_67R-YnCO";
 if (!token) {
   console.error("Missing MATIONBUILD_ADMIN_TOKEN. Set it privately in your shell; do not put it in source code.");
   process.exit(2);
