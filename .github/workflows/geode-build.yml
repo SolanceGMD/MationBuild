@@ -14,6 +14,15 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Create Geode logo from existing icon
+        shell: pwsh
+        run: |
+          Add-Type -AssemblyName System.Drawing
+          $icon = [System.Drawing.Icon]::ExtractAssociatedIcon((Resolve-Path "MationBuild.ico"))
+          $bitmap = $icon.ToBitmap()
+          $bitmap.Save((Join-Path $PWD "logo.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+          $bitmap.Dispose()
+          $icon.Dispose()
       - name: Build with Geode SDK
         id: build
         uses: geode-sdk/build-geode-mod@main
