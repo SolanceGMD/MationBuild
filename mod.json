@@ -1,14 +1,22 @@
 {
-  "geode": "v5.11.2",
-  "gd": {"win":"2.2081","mac":"2.2081","android":"2.2081","ios":"2.2081"},
-  "id":"solance.mationbuild",
-  "name":"MationBuild",
-  "version":"v0.1.0",
-  "developer":"Solance Good",
-  "description":"A style-driven Geometry Dash auto-decoration toolkit with community template support and key-gated premium features.",
-  "repository":"https://github.com/SolanceGMD/MationBuild",
-  "issues":"https://github.com/SolanceGMD/MationBuild/issues",
-  "tags":["editor","enhancement"],
-  "settings":{},
-  "dependencies":[]
+  "geode": "5.11.2",
+  "gd": {
+    "win": "2.2081",
+    "mac": "2.2081",
+    "android": "2.2081",
+    "ios": "2.2081"
+  },
+  "id": "solance.mationbuild",
+  "name": "MationBuild",
+  "version": "v0.1.0",
+  "developer": "Solance Good",
+  "description": "A style-driven Geometry Dash auto-decoration toolkit with community template support and key-gated premium features.",
+  "repository": "https://github.com/SolanceGMD/MationBuild",
+  "issues": "https://github.com/SolanceGMD/MationBuild/issues",
+  "tags": [
+    "editor",
+    "enhancement"
+  ],
+  "settings": {},
+  "dependencies": []
 }
