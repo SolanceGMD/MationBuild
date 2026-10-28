@@ -25,7 +25,7 @@ form.addEventListener("submit", async (event) => {
     const response = await fetch(CONFIG.verifyEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ key })
+      body: JSON.stringify({ action: "verify", key })
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.valid !== true) {
