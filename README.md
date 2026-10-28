@@ -4,11 +4,11 @@
 
 ## Status — read before using
 
-The repository now contains a first in-editor auto-decoration pass, a static access portal, and a deployed licensing/template API. In the editor, select up to 100 objects and use the MationBuild button; after server-side key verification it adds small accents near each selected object using the editor's paste/undo path. Choose Tech, Minimal, or Geometric in the mod settings. This is an initial style-based generator, not feature parity with Antiprime AutoBuild. It still requires a successful build and in-game validation. The editor also supports the documented portable `mationbuild-json` v1 format; native Antiprime template import is not implemented.
+The repository now contains a first in-editor auto-decoration pass, a static access portal, and a deployed licensing/template API. In the editor, select up to 100 objects and use the MationBuild button; after server-side key verification it adds small accents near each selected object using the editor's paste/undo path. Choose Tech, Minimal, or Geometric in the mod settings. This is an initial style-based generator, not feature parity with Antiprime AutoBuild. A Windows `.geode` artifact has been produced by GitHub Actions; it still needs an actual in-game compatibility test. The editor also supports the documented portable `mationbuild-json` v1 format; native Antiprime template import is not implemented.
 
 ## Project files
 
-- `src/main.cpp`, `mod.json`, `CMakeLists.txt` — Geode mod scaffold.
+- `src/main.cpp`, `mod.json`, `CMakeLists.txt` — Geode editor tools, access-key check, and portable template importer.
 - `site/` — responsive access portal; uses the existing `MationBuild.ico`.
 - `.github/workflows/geode-build.yml` — Windows .geode build and artifact upload.
 - `.github/workflows/pages.yml` — GitHub Pages deployment.
@@ -16,10 +16,20 @@ The repository now contains a first in-editor auto-decoration pass, a static acc
 - `scripts/mationbuild-admin.mjs` — private CLI for key issuance and template moderation; requires a private admin token.
 - `docs/community-templates.md` — template compatibility and moderation policy.
 
-## Build and website
+## Install and use the Windows build
 
-- [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions) shows current builds and site checks.
-- Enable Pages in **Settings → Pages → Source: GitHub Actions** if not already enabled.
+1. Open [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions), open the latest successful **Build MationBuild Geode mod** run, and download the `MationBuild-Windows` artifact.
+2. Extract the `.geode` file and install it using Geode's mod installer.
+3. Open Geode's MationBuild settings and enter your access key.
+4. In the level editor, select up to 100 anchor objects and press **Auto** to apply the selected Tech, Minimal, or Geometric accent style.
+5. To import a community pack, download a `mationbuild-json` v1 JSON file, select anchor objects, press **Import**, and choose the file. Use Undo to revert an applied pass.
+
+The portable importer only accepts the documented tiny decoration IDs 1764–1768. Native Antiprime files are not supported yet.
+
+## Website
+
+- [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions) shows builds and site checks.
+- Enable Pages in **Settings → Pages → Source: GitHub Actions** if not already enabled. The deployment workflow cannot enable Pages because GitHub blocks that permission for its workflow token.
 - A successful build artifact is not a substitute for in-game compatibility testing.
 
 ## Backend
