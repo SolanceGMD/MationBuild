@@ -147,41 +147,62 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
             int id;
             CCPoint offset;
             float scale;
+            float rotation;
         };
+
+        // Build layered panel frames from native decorative objects, not symbol clusters.
+        // Object IDs are decorative-only: thin lines/glows, tiny circle/triangle/rectangle.
         const Accent tech[] = {
-            {1764, {-10.f, 10.f}, 0.35f},
-            {1765, { 10.f,-10.f}, 0.35f},
-            {1767, {-10.f,-10.f}, 0.35f},
-            {1768, { 10.f, 10.f}, 0.35f}
+            {1754, {  0.f, 15.f}, 0.62f,   0.f},
+            {1753, {  0.f,-15.f}, 0.62f,   0.f},
+            {1754, {-15.f,  0.f}, 0.62f,  90.f},
+            {1753, { 15.f,  0.f}, 0.62f,  90.f},
+            {1764, {-12.f, 12.f}, 0.32f,   0.f},
+            {1764, { 12.f, 12.f}, 0.32f,   0.f},
+            {1764, {-12.f,-12.f}, 0.32f,  0.f},
+            {1764, { 12.f,-12.f}, 0.32f,  0.f},
+            {1766, {  0.f,  0.f}, 0.30f, 90.f}
         };
         const Accent minimal[] = {
-            {1764, {-8.f, 8.f}, 0.28f},
-            {1764, { 8.f,-8.f}, 0.28f},
-            {1764, {-8.f,-8.f}, 0.28f},
-            {1764, { 8.f, 8.f}, 0.28f}
+            {1753, {  0.f, 13.f}, 0.52f,   0.f},
+            {1753, {  0.f,-13.f}, 0.52f,   0.f},
+            {1764, {-12.f,  0.f}, 0.28f,   0.f},
+            {1764, { 12.f,  0.f}, 0.28f,   0.f}
         };
         const Accent geometric[] = {
-            {1766, {-10.f, 10.f}, 0.35f},
-            {1765, { 10.f,-10.f}, 0.35f},
-            {1764, {-10.f,-10.f}, 0.35f},
-            {1767, { 10.f, 10.f}, 0.35f}
+            {1754, {  0.f, 15.f}, 0.62f,   0.f},
+            {1753, {  0.f,-15.f}, 0.62f,   0.f},
+            {1753, {-15.f,  0.f}, 0.62f,  90.f},
+            {1754, { 15.f,  0.f}, 0.62f,  90.f},
+            {1767, {  0.f,  0.f}, 0.42f,   0.f},
+            {1766, {-11.f,  0.f}, 0.30f, 270.f},
+            {1766, { 11.f,  0.f}, 0.30f,  90.f},
+            {1764, {  0.f, 11.f}, 0.28f,   0.f},
+            {1764, {  0.f,-11.f}, 0.28f,   0.f}
         };
         auto style = Mod::get()->getSettingValue<std::string>("style");
-        const Accent* accents = tech;
-        if (style == "Minimal") accents = minimal;
-        else if (style == "Geometric") accents = geometric;
+        auto const* accents = tech;
+        size_t accentCount = sizeof(tech) / sizeof(tech[0]);
+        if (style == "Minimal") {
+            accents = minimal;
+            accentCount = sizeof(minimal) / sizeof(minimal[0]);
+        } else if (style == "Geometric") {
+            accents = geometric;
+            accentCount = sizeof(geometric) / sizeof(geometric[0]);
+        }
 
         gd::string payload;
         int requested = 0;
         for (unsigned int i = 0; i < targets->count(); i++) {
             auto target = typeinfo_cast<GameObject*>(targets->objectAtIndex(i));
             if (!target) continue;
-            for (int j = 0; j < 4; j++) {
+            for (size_t j = 0; j < accentCount; j++) {
                 auto const& accent = accents[j];
                 auto decoration = GameObject::createWithKey(accent.id);
                 if (!decoration) continue;
                 decoration->setPosition(target->getPosition() + accent.offset);
                 decoration->setScale(accent.scale);
+                decoration->setRotation(accent.rotation);
                 payload += decoration->getSaveString(this);
                 payload += ";";
                 requested++;
@@ -277,8 +298,10 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
             auto scale = value["scale"].asDouble().unwrapOr(0.35);
             auto rotation = value["rotation"].asDouble().unwrapOr(0.0);
 
-            // The portable format deliberately whitelists tiny non-trigger accents only.
-            if (id < 1764 || id > 1768 || !std::isfinite(x) || !std::isfinite(y) ||
+            // Explicit decorative-only allowlist; gameplay objects and triggers are excluded.
+            auto supportedId = id == 1753 || id == 1754 ||
+                (id >= 1758 && id <= 1764) || (id >= 1766 && id <= 1768);
+            if (!supportedId || !std::isfinite(x) || !std::isfinite(y) ||
                 !std::isfinite(scale) || !std::isfinite(rotation) ||
                 std::abs(x) > 3000.0 || std::abs(y) > 3000.0 ||
                 scale < 0.1 || scale > 2.0 || std::abs(rotation) > 3600.0) {
