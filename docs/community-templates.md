@@ -12,7 +12,7 @@ Community submissions should provide metadata and point to a downloadable JSON p
 
 The importer accepts `mationbuild-json`, schema version 1, for Geometry Dash `2.2081`. To keep imports safe, the current format only allows the five tiny decorative accent IDs 1764–1768, caps templates at 100 objects, caps files at 500 KB, limits anchors and total placements, and validates coordinate/scale/rotation ranges. It does not allow arbitrary triggers or gameplay objects.
 
-Example payload: [download the sample Tech accent pack](https://github.com/SolanceGMD/MationBuild/blob/main/templates/tech-accent-pack.json).
+Example payload: [download the sample Tech accent pack](https://raw.githubusercontent.com/SolanceGMD/MationBuild/main/templates/tech-accent-pack.json).
 ```json
 {
   "format": "mationbuild-json",
