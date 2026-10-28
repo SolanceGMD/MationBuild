@@ -1,0 +1,3 @@
+project_id = "mationbuild"
+[functions.mationbuild-api]
+verify_jwt = false
