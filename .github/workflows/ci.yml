@@ -25,5 +25,6 @@ jobs:
           node --check site/app.js
           node --check scripts/mationbuild-admin.mjs
           node -e "const m = require('./mod.json'); if (m.gd.win !== '2.2081') process.exit(1); console.log('mod.json OK for Geometry Dash', m.gd.win)"
+          node -e "const t = require('./templates/tech-accent-pack.json'); if (t.format !== 'mationbuild-json' || t.schema_version !== 1 || t.game_version !== '2.2081' || !Array.isArray(t.objects) || !t.objects.length || t.objects.some(o => !Number.isInteger(o.id) || o.id < 1764 || o.id > 1768)) process.exit(1); console.log('Portable template OK')"
       - name: Check for whitespace errors
         run: git diff --check
