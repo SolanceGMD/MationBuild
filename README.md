@@ -1,6 +1,6 @@
 # MationBuild
 
-**MationBuild by Solance Good** is an early-stage Geometry Dash auto-decoration mod project with an access portal, Geode build workflow, and a deployed Supabase licensing/template API.
+**MationBuild by Solance** is an early-stage Geometry Dash auto-decoration mod project with an access portal, Geode build workflow, and a deployed Supabase licensing/template API.
 
 ## Status — read before using
 
