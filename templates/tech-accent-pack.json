@@ -3,9 +3,68 @@
   "schema_version": 1,
   "game_version": "2.2081",
   "objects": [
-    { "id": 1764, "x": -10, "y": 10, "scale": 0.35, "rotation": 0 },
-    { "id": 1765, "x": 10, "y": -10, "scale": 0.35, "rotation": 0 },
-    { "id": 1767, "x": -10, "y": -10, "scale": 0.35, "rotation": 0 },
-    { "id": 1768, "x": 10, "y": 10, "scale": 0.35, "rotation": 0 }
+    {
+      "id": 1754,
+      "x": 0,
+      "y": 15,
+      "scale": 0.62,
+      "rotation": 0
+    },
+    {
+      "id": 1753,
+      "x": 0,
+      "y": -15,
+      "scale": 0.62,
+      "rotation": 0
+    },
+    {
+      "id": 1754,
+      "x": -15,
+      "y": 0,
+      "scale": 0.62,
+      "rotation": 90
+    },
+    {
+      "id": 1753,
+      "x": 15,
+      "y": 0,
+      "scale": 0.62,
+      "rotation": 90
+    },
+    {
+      "id": 1764,
+      "x": -12,
+      "y": 12,
+      "scale": 0.32,
+      "rotation": 0
+    },
+    {
+      "id": 1764,
+      "x": 12,
+      "y": 12,
+      "scale": 0.32,
+      "rotation": 0
+    },
+    {
+      "id": 1764,
+      "x": -12,
+      "y": -12,
+      "scale": 0.32,
+      "rotation": 0
+    },
+    {
+      "id": 1764,
+      "x": 12,
+      "y": -12,
+      "scale": 0.32,
+      "rotation": 0
+    },
+    {
+      "id": 1766,
+      "x": 0,
+      "y": 0,
+      "scale": 0.3,
+      "rotation": 90
+    }
   ]
 }
