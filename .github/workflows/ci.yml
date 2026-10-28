@@ -25,6 +25,6 @@ jobs:
           node --check site/app.js
           node --check scripts/mationbuild-admin.mjs
           node -e "const m = require('./mod.json'); if (m.gd.win !== '2.2081') process.exit(1); console.log('mod.json OK for Geometry Dash', m.gd.win)"
-          node -e "const fs = require('fs'); const files = fs.readdirSync('templates').filter(f => f.endsWith('.json')); if (!files.length) process.exit(1); for (const f of files) { const t = require('./templates/' + f); if (t.format !== 'mationbuild-json' || t.schema_version !== 1 || t.game_version !== '2.2081' || !Array.isArray(t.objects) || !t.objects.length || t.objects.some(o => !Number.isInteger(o.id) || o.id < 1764 || o.id > 1768)) throw new Error('Invalid template: ' + f); } console.log('Portable templates OK:', files.length)"
+          node -e "const fs = require('fs'); const files = fs.readdirSync('templates').filter(f => f.endsWith('.json')); if (!files.length) process.exit(1); for (const f of files) { const t = require('./templates/' + f); if (t.format !== 'mationbuild-json' || t.schema_version !== 1 || t.game_version !== '2.2081' || !Array.isArray(t.objects) || !t.objects.length || t.objects.some(o => !Number.isInteger(o.id) || ![1753,1754,1758,1759,1760,1761,1762,1763,1764,1766,1767,1768].includes(o.id))) throw new Error('Invalid template: ' + f); } console.log('Portable templates OK:', files.length)"
       - name: Check for whitespace errors
         run: git diff --check
