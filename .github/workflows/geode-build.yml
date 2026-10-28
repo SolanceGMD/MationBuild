@@ -3,10 +3,9 @@ on:
   push:
     branches: [main]
     paths: ["src/**", "mod.json", "CMakeLists.txt", "about.md", "changelog.md", ".github/workflows/geode-build.yml"]
+    tags: ["v*"]
   pull_request:
     paths: ["src/**", "mod.json", "CMakeLists.txt"]
-  push:
-    tags: ["v*"]
   workflow_dispatch:
 concurrency:
   group: geode-build-${{ github.ref }}
