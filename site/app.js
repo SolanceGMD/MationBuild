@@ -1,7 +1,6 @@
-/* MationBuild access portal. No secret keys belong in this file. */
+/* MationBuild access portal. Public endpoint only; no secret keys belong in this file. */
 const CONFIG = Object.freeze({
-  // Set this to your deployed Supabase Edge Function URL before enabling verification.
-  verifyEndpoint: ""
+  verifyEndpoint: "https://gfgmknlxzdfnjdpxetdz.supabase.co/functions/v1/mationbuild-api"
 });
 const form = document.querySelector("#verify-form");
 const keyInput = document.querySelector("#key");
@@ -13,11 +12,6 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const key = keyInput.value.trim();
   statusEl.classList.remove("error");
-  if (!CONFIG.verifyEndpoint) {
-    statusEl.textContent = "Access verification is not configured yet. Please check back after the service is deployed.";
-    statusEl.classList.add("error");
-    return;
-  }
   submitButton.disabled = true;
   submitButton.textContent = "Checking…";
   statusEl.textContent = "";
