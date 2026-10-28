@@ -29,7 +29,9 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
         if (autoMenu) {
             autoMenu->setID("solance.mationbuild/auto-menu");
             autoMenu->setPosition({winSize.width - 72.f, winSize.height - 42.f});
-            auto autoSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn_001.png");
+            auto autoSprite = ButtonSprite::create(
+                "Auto", 58, 0, 0.65f, true, "goldFont.fnt", "GJ_button_01.png", 0.f
+            );
             if (autoSprite) {
                 auto autoButton = CCMenuItemSpriteExtra::create(
                     autoSprite, this, menu_selector(MationBuildEditorLayer::onMationBuild)
@@ -191,7 +193,7 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
 
     void chooseTemplateFile() {
         file::FilePickOptions options;
-        options.filters.push_back({"MationBuild JSON template", {".json"}});
+        options.filters.push_back({"MationBuild JSON template", {"*.json"}});
         m_fields->m_filePick.spawn(
             "Choose a MationBuild template",
             file::pick(file::PickMode::OpenFile, options),
@@ -344,6 +346,14 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
         auto ui = m_editorUI;
         auto pasted = ui ? ui->pasteObjects(payload, false, false) : nullptr;
         auto placed = pasted ? static_cast<int>(pasted->count()) : 0;
+        if (placed == 0) {
+            FLAlertLayer::create(
+                "MationBuild",
+                "Geometry Dash could not place those objects. Try selecting different anchors or checking the template.",
+                "Close"
+            )->show();
+            return;
+        }
         auto message = fmt::format(
             "Added {} decorative accents. Use Undo to revert this pass.",
             placed
