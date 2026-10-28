@@ -1,0 +1,35 @@
+{
+  "format": "mationbuild-json",
+  "schema_version": 1,
+  "game_version": "2.2081",
+  "objects": [
+    {
+      "id": 1764,
+      "x": -8,
+      "y": 8,
+      "scale": 0.28,
+      "rotation": 0
+    },
+    {
+      "id": 1764,
+      "x": 8,
+      "y": -8,
+      "scale": 0.28,
+      "rotation": 0
+    },
+    {
+      "id": 1764,
+      "x": -8,
+      "y": -8,
+      "scale": 0.28,
+      "rotation": 0
+    },
+    {
+      "id": 1764,
+      "x": 8,
+      "y": 8,
+      "scale": 0.28,
+      "rotation": 0
+    }
+  ]
+}
