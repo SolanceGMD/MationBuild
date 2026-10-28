@@ -4,7 +4,7 @@
 
 ## Status — read before using
 
-The repository contains a starter Geode mod, static access portal, and deployed starter backend. The in-game button remains a scaffold: the mod does **not yet perform automatic decoration, enforce license keys in-game, or import Antiprime-native templates**. Do not treat the current source or any artifact as a complete release until a build succeeds and the mod is tested in Geometry Dash.
+The repository now contains a first in-editor auto-decoration pass, a static access portal, and a deployed licensing/template API. In the editor, select up to 100 objects and use the MationBuild button; after server-side key verification it adds tiny-circle and tiny-cross accents near each selected object using the editor's paste/undo path. This is an intentionally small first pass, not feature parity with Antiprime AutoBuild. It still requires a successful build and in-game validation; native Antiprime template import is not implemented.
 
 ## Project files
 
@@ -26,7 +26,7 @@ The repository contains a starter Geode mod, static access portal, and deployed 
 
 A dedicated Supabase project is deployed in TLAL, London (`eu-west-2`). The database schema, database-backed rate limiting and Edge Function are deployed; a basic rate-limit test passed. The website source is configured to call the verification endpoint. Project creation was approved at $0/month; future usage, add-ons, or plan changes could still incur costs, so monitor billing.
 
-**Manual security step still required:** set `MATIONBUILD_ADMIN_TOKEN` and `ALLOWED_ORIGIN` in [Supabase Function secrets](https://supabase.com/dashboard/project/gfgmknlxzdfnjdpxetdz/functions/secrets). The available connector cannot write secrets. Key issuance and template moderation remain disabled until the token is configured. Follow [supabase/README.md](supabase/README.md). No service-role key or admin token is committed to this repository.
+**Manual security step still required:** set `MATIONBUILD_ADMIN_TOKEN` and `ALLOWED_ORIGIN=https://solancegmd.github.io` in [Supabase Function secrets](https://supabase.com/dashboard/project/gfgmknlxzdfnjdpxetdz/functions/secrets). Key issuance and template moderation remain disabled until the admin token is configured. Follow [supabase/README.md](supabase/README.md). No service-role key or admin token is committed to this repository. The mod's access-key setting is stored in the local Geode settings file; use a private key and do not share it.
 
 ## Community templates and Antiprime
 
