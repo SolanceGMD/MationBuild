@@ -111,20 +111,38 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
             auto target = typeinfo_cast<GameObject*>(targets->objectAtIndex(i));
             if (!target) continue;
 
-            // Geometry Dash 2.2081 object IDs 1764–1767 are tiny visual accents:
-            // Circle, Cross, Triangle, and Rectangle.
+            // These 2.2081 object IDs are tiny visual accents: Circle (1764),
+            // Cross (1765), Triangle (1766), Rectangle (1767), Arrow (1768).
             const struct Accent {
                 int id;
                 CCPoint offset;
                 float scale;
-            } accents[] = {
+            };
+            const Accent tech[] = {
                 {1764, {-10.f, 10.f}, 0.35f},
                 {1765, { 10.f,-10.f}, 0.35f},
-                {1766, {-10.f,-10.f}, 0.35f},
+                {1767, {-10.f,-10.f}, 0.35f},
+                {1768, { 10.f, 10.f}, 0.35f}
+            };
+            const Accent minimal[] = {
+                {1764, {-8.f, 8.f}, 0.28f},
+                {1764, { 8.f,-8.f}, 0.28f},
+                {1764, {-8.f,-8.f}, 0.28f},
+                {1764, { 8.f, 8.f}, 0.28f}
+            };
+            const Accent geometric[] = {
+                {1766, {-10.f, 10.f}, 0.35f},
+                {1765, { 10.f,-10.f}, 0.35f},
+                {1764, {-10.f,-10.f}, 0.35f},
                 {1767, { 10.f, 10.f}, 0.35f}
             };
+            auto style = Mod::get()->getSettingValue<std::string>("style");
+            const Accent* accents = tech;
+            if (style == "Minimal") accents = minimal;
+            else if (style == "Geometric") accents = geometric;
 
-            for (auto const& accent : accents) {
+            for (int j = 0; j < 4; j++) {
+                auto const& accent = accents[j];
                 auto decoration = GameObject::createWithKey(accent.id);
                 if (!decoration) continue;
                 decoration->setPosition(target->getPosition() + accent.offset);
