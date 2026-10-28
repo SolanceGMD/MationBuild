@@ -1,10 +1,10 @@
 # MationBuild
 
-**MationBuild by Solance Good** is an early-stage Geometry Dash auto-decoration mod project with a GitHub Pages access portal, Geode build workflow, and starter licensing/template API.
+**MationBuild by Solance Good** is an early-stage Geometry Dash auto-decoration mod project with an access portal, Geode build workflow, and a deployed Supabase licensing/template API.
 
 ## Status — read before using
 
-This repository contains a **starter Geode mod**, build workflow, static access portal, and a deployed Supabase starter backend. The initial in-game popup is only a scaffold. It does **not yet perform automatic decoration, validate keys inside the mod, import Antiprime-native templates, or produce a verified release build**. Do not treat a build artifact as complete until the CI run succeeds and the resulting `.geode` is tested in-game.
+The repository contains a starter Geode mod, static access portal, and deployed starter backend. The in-game button remains a scaffold: the mod does **not yet perform automatic decoration, enforce license keys in-game, or import Antiprime-native templates**. Do not treat the current source or any artifact as a complete release until a build succeeds and the mod is tested in Geometry Dash.
 
 ## Project files
 
@@ -12,30 +12,24 @@ This repository contains a **starter Geode mod**, build workflow, static access 
 - `site/` — responsive access portal; uses the existing `MationBuild.ico`.
 - `.github/workflows/geode-build.yml` — Windows .geode build and artifact upload.
 - `.github/workflows/pages.yml` — GitHub Pages deployment.
-- `supabase/migrations/`, `supabase/functions/` — starter licensing and community-template API.
-- `docs/community-templates.md` — template compatibility and moderation plan.
+- `supabase/migrations/`, `supabase/functions/` — database and API source.
+- `scripts/mationbuild-admin.mjs` — private CLI for key issuance and template moderation; requires a private admin token.
+- `docs/community-templates.md` — template compatibility and moderation policy.
 
-## Build
+## Build and website
 
-The GitHub Actions workflow uses the Geode SDK build action. See the [Actions tab](https://github.com/SolanceGMD/MationBuild/actions). A successful run uploads a Windows `.geode` artifact. Build success is not a substitute for an in-game compatibility test.
+- [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions) shows current builds and site checks.
+- Enable Pages in **Settings → Pages → Source: GitHub Actions** if not already enabled.
+- A successful build artifact is not a substitute for in-game compatibility testing.
 
-Geode's official mod workflow and metadata requirements are documented in the [Geode SDK documentation](https://docs.geode-sdk.org/).
+## Backend
 
-## Enable GitHub Pages
+A dedicated Supabase project is deployed in TLAL, London (`eu-west-2`). The database schema, database-backed rate limiting and Edge Function are deployed; a basic rate-limit test passed. The website source is configured to call the verification endpoint. Project creation was approved at $0/month; future usage, add-ons, or plan changes could still incur costs, so monitor billing.
 
-1. Open **Settings → Pages**.
-2. Set the source to **GitHub Actions**.
-3. The workflow publishes the `site/` directory when the relevant files change.
-4. The site URL appears under Settings → Pages.
-
-## Licensing backend
-
-A dedicated Supabase project is deployed in the TLAL organization on the free plan, in London (`eu-west-2`). The database migration is applied and the Edge Function is active. The access portal is configured to call the deployed verification endpoint. Project creation was quoted and approved at $0/month; future usage, add-ons, or plan changes could still incur costs, so monitor billing.
-
-Follow [supabase/README.md](supabase/README.md) to configure the private admin token. Key issuance is not ready until that secret is set. Never place a Supabase service-role key or admin token in browser code or source control. The current API is a starter implementation; production release needs abuse protection, a secure admin workflow, revocation controls, and tests.
+**Manual security step still required:** set `MATIONBUILD_ADMIN_TOKEN` and `ALLOWED_ORIGIN` in [Supabase Function secrets](https://supabase.com/dashboard/project/gfgmknlxzdfnjdpxetdz/functions/secrets). The available connector cannot write secrets. Key issuance and template moderation remain disabled until the token is configured. Follow [supabase/README.md](supabase/README.md). No service-role key or admin token is committed to this repository.
 
 ## Community templates and Antiprime
 
-The project intends to support community-authored templates and, where permitted, compatibility with Antiprime AutoBuild templates. The current mod does **not** yet implement that importer. See [docs/community-templates.md](docs/community-templates.md) for the compatibility boundary and safe submission policy. Please provide an authorized sample export of the template format before claiming native compatibility.
+The project intends to support community-authored templates and, where permitted, compatibility with Antiprime AutoBuild templates. The native importer is not implemented yet. See [docs/community-templates.md](docs/community-templates.md). A permitted sample export and verified format are required before claiming compatibility.
 
 MationBuild is an independent community project and is not affiliated with RobTop Games or Antiprime. Third-party assets remain their creators' property and must be used according to their terms.
