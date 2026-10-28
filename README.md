@@ -1,45 +1,54 @@
 # MationBuild
 
-**MationBuild by Solance** is an early-stage Geometry Dash auto-decoration mod project with an access portal, Geode build workflow, and a deployed Supabase licensing/template API.
+**MationBuild by Solance** is a Geometry Dash editor companion for repeatable block-decoration frames and portable community template packs.
 
-## Status — read before using
+## Current release: v0.2.0
 
-The repository now contains a first in-editor auto-decoration pass, a static access portal, and a deployed licensing/template API. In the editor, select up to 100 objects and use the MationBuild button; after server-side key verification it adds small accents near each selected object using the editor's paste/undo path. Choose Tech, Minimal, or Geometric in the mod settings. This is an initial style-based generator, not feature parity with Antiprime AutoBuild. A Windows `.geode` artifact has been produced by GitHub Actions; it still needs an actual in-game compatibility test. The editor also supports the documented portable `mationbuild-json` v1 format; native Antiprime template import is not implemented.
+### Features
+- **Layered decoration presets** — Tech, Minimal, and Geometric panel-frame patterns built from native decorative objects rather than tiny symbol clusters.
+- **Access-key verification** — editor tools verify keys through the MationBuild API.
+- **Portable template import** — validated `mationbuild-json` v1 files for Geometry Dash 2.2081.
+- **Undo-friendly placement** — generated objects use the editor paste path; use Undo to revert a pass.
+- **Automated Windows builds** — GitHub Actions builds the Geode package and uploads it as an artifact.
 
-## Project files
+### Compatibility status
+MationBuild's portable JSON format is supported. **Native Antiprime AutoBuild template import is not implemented** because a verified, authorized export and its exact format are not available yet. Do not treat the portable JSON importer as an Antiprime importer.
 
-- `src/main.cpp`, `mod.json`, `CMakeLists.txt` — Geode editor tools, access-key check, and portable template importer.
-- `site/` — responsive access portal; uses the existing `MationBuild.ico`.
-- `.github/workflows/geode-build.yml` — Windows .geode build and artifact upload.
-- `.github/workflows/pages.yml` — GitHub Pages deployment.
-- `supabase/migrations/`, `supabase/functions/` — database and API source.
-- `scripts/mationbuild-admin.mjs` — private CLI for key issuance and template moderation; requires a private admin token.
-- `docs/community-templates.md` — template compatibility and moderation policy.
+## Install the Windows build
 
-## Install and use the Windows build
+1. Open [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions).
+2. Open the latest successful **Build MationBuild Geode mod** run and download **MationBuild-Windows**.
+3. Extract the ZIP and install the contained `.geode` file using Geode.
+4. Enter your MationBuild access key in Geode's MationBuild settings.
+5. Open a level editor, select the block/anchor objects you want to decorate, and choose **Auto**. Set the style in mod settings.
+6. To apply a portable pack, select anchor objects, choose **Import**, and select a MationBuild JSON v1 file.
 
-1. Open [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions), open the latest successful **Build MationBuild Geode mod** run, and download the `MationBuild-Windows` artifact.
-2. Extract the `.geode` file and install it using Geode's mod installer.
-3. Open Geode's MationBuild settings and enter your access key.
-4. In the level editor, select up to 100 anchor objects and press **Auto** to apply the selected Tech, Minimal, or Geometric accent style.
-5. To import a community pack, download a `mationbuild-json` v1 JSON file, select anchor objects, press **Import**, and choose the file. Use Undo to revert an applied pass.
+**Important:** build success confirms compilation and packaging, not full in-game compatibility. Back up important levels and test in a disposable level before using the mod in a production project.
 
-The portable importer only accepts the documented tiny decoration IDs 1764–1768. Native Antiprime files are not supported yet.
+## Repository layout
 
-## Website
+- `src/main.cpp`, `mod.json`, `CMakeLists.txt` — Geode editor tools and portable importer.
+- `site/` — access portal and community catalog.
+- `.github/workflows/geode-build.yml` — Windows build and artifact workflow.
+- `.github/workflows/ci.yml` — site and template validation.
+- `supabase/` — database and Edge Function source.
+- `docs/community-templates.md` — format, limits, and compatibility notes.
+- `templates/` — sample portable packs.
 
-- [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions) shows builds and site checks.
-- Enable Pages in **Settings → Pages → Source: GitHub Actions** if not already enabled. The deployment workflow cannot enable Pages because GitHub blocks that permission for its workflow token.
-- A successful build artifact is not a substitute for in-game compatibility testing.
+## Website and backend setup
 
-## Backend
+- Website: [MationBuild portal](https://solancegmd.github.io/MationBuild/)
+- Build history: [GitHub Actions](https://github.com/SolanceGMD/MationBuild/actions)
+- Enable GitHub Pages in **Settings → Pages → Source: GitHub Actions** if it is not already enabled.
+- The Supabase function requires the project secrets `MATIONBUILD_ADMIN_TOKEN` and `ALLOWED_ORIGIN=https://solancegmd.github.io` for admin key issuance and moderation. See [supabase/README.md](supabase/README.md). Never commit the admin token or service-role key.
 
-A dedicated Supabase project is deployed in TLAL, London (`eu-west-2`). The database schema, database-backed rate limiting and Edge Function are deployed; a basic rate-limit test passed. The website source is configured to call the verification endpoint. Project creation was approved at $0/month; future usage, add-ons, or plan changes could still incur costs, so monitor billing.
+## Release checklist
 
-**Manual security step still required:** set `MATIONBUILD_ADMIN_TOKEN` and `ALLOWED_ORIGIN=https://solancegmd.github.io` in [Supabase Function secrets](https://supabase.com/dashboard/project/gfgmknlxzdfnjdpxetdz/functions/secrets). Key issuance and template moderation remain disabled until the admin token is configured. Follow [supabase/README.md](supabase/README.md). No service-role key or admin token is committed to this repository. The mod's access-key setting is stored in the local Geode settings file; use a private key and do not share it.
+Before distributing a public release:
+- Confirm the latest Windows build and CI workflows pass.
+- Install the artifact in Geometry Dash 2.2081 with the target Geode version.
+- Verify Auto, each style, key rejection/acceptance, import validation, and Undo in-game.
+- Verify the website and backend admin secrets are configured.
+- Publish release notes and only claim compatibility that has been tested.
 
-## Community templates and Antiprime
-
-The project intends to support community-authored templates and, where permitted, compatibility with Antiprime AutoBuild templates. The native importer is not implemented yet. See [docs/community-templates.md](docs/community-templates.md). A permitted sample export and verified format are required before claiming compatibility.
-
-MationBuild is an independent community project and is not affiliated with RobTop Games or Antiprime. Third-party assets remain their creators' property and must be used according to their terms.
+MationBuild is an independent community project and is not affiliated with RobTop Games or Antiprime. Third-party assets and templates remain their creators' property.
