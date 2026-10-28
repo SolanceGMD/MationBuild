@@ -12,7 +12,9 @@
   "developer": "Solance",
   "description": "A style-driven Geometry Dash auto-decoration toolkit with community template support and key-gated premium features.",
   "repository": "https://github.com/SolanceGMD/MationBuild",
-  "issues": "https://github.com/SolanceGMD/MationBuild/issues",
+  "issues": {
+    "url": "https://github.com/SolanceGMD/MationBuild/issues"
+  },
   "tags": [
     "editor",
     "enhancement"
