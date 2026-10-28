@@ -1,12 +1,17 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/LevelEditorLayer.hpp>
+#include <Geode/utils/async.hpp>
+#include <Geode/utils/web.hpp>
+#include <algorithm>
+#include <cctype>
 
 using namespace geode::prelude;
 
-// A conservative first auto-decoration pass: users explicitly select objects,
-// then MationBuild adds small non-trigger decorative accents around that selection.
-// It never scans or modifies the entire level and uses the editor's paste/undo path.
 class $modify(MationBuildEditorLayer, LevelEditorLayer) {
+    struct Fields {
+        async::TaskHolder<web::WebResponse> m_keyCheck;
+    };
+
     bool init(GJGameLevel* level, bool noUI) {
         if (!LevelEditorLayer::init(level, noUI)) return false;
         if (noUI) return true;
@@ -31,6 +36,47 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
     }
 
     void onMationBuild(CCObject*) {
+        auto key = Mod::get()->getSettingValue<std::string>("access-key");
+        std::transform(key.begin(), key.end(), key.begin(), [](unsigned char c) {
+            return static_cast<char>(std::toupper(c));
+        });
+        if (key.size() != 23 || key.rfind("MB-", 0) != 0 ||
+            !std::all_of(key.begin(), key.end(), [](unsigned char c) {
+                return std::isalnum(c) || c == '-';
+            })) {
+            FLAlertLayer::create(
+                "MationBuild",
+                "Add your access key in Geode's MationBuild mod settings, then try again.",
+                "Close"
+            )->show();
+            return;
+        }
+
+        auto req = web::WebRequest();
+        req.header("Content-Type", "application/json");
+        req.header("apikey", "sb_publishable_w0puiuo49MRiVpf4sQWj9Q_67R-YnCO");
+        // The key has been restricted to alphanumeric characters and hyphens before JSON insertion.
+        req.bodyString(fmt::format(R"({{"action":"verify","key":"{}"}})", key));
+
+        m_fields->m_keyCheck.spawn(
+            "Verify MationBuild access key",
+            req.post("https://gfgmknlxzdfnjdpxetdz.supabase.co/functions/v1/mationbuild-api"),
+            [this](web::WebResponse response) {
+                auto body = response.string().unwrapOr("");
+                if (!response.ok() || body.find("\"valid\":true") == std::string::npos) {
+                    FLAlertLayer::create(
+                        "MationBuild",
+                        "Your access key could not be verified. Check that it is active and that you are online.",
+                        "Close"
+                    )->show();
+                    return;
+                }
+                this->applyAutoDecoration();
+            }
+        );
+    }
+
+    void applyAutoDecoration() {
         auto ui = m_editorUI;
         if (!ui) {
             FLAlertLayer::create("MationBuild", "The editor UI is not ready yet.", "Close")->show();
@@ -41,7 +87,7 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
         if ((!selected || selected->count() == 0) && !ui->m_selectedObject) {
             FLAlertLayer::create(
                 "MationBuild",
-                "Select one or more objects first. MationBuild will add small decorative accents only around your selection.",
+                "Select one or more objects first. MationBuild adds small decorative accents only around your selection.",
                 "Close"
             )->show();
             return;
@@ -53,7 +99,7 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
         if (targets->count() > 100) {
             FLAlertLayer::create(
                 "MationBuild",
-                "Please select 100 objects or fewer for this pass. This limit helps prevent accidental level clutter.",
+                "Please select 100 objects or fewer for this pass to prevent accidental level clutter.",
                 "Close"
             )->show();
             return;
@@ -65,8 +111,7 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
             auto target = typeinfo_cast<GameObject*>(targets->objectAtIndex(i));
             if (!target) continue;
 
-            // IDs 1764 and 1765 are the small Circle and Cross decoration objects
-            // in Geometry Dash 2.2081. They are visual accents, not gameplay triggers.
+            // Geometry Dash 2.2081 object IDs 1764 and 1765 are Tiny Circle and Tiny Cross.
             const struct Accent {
                 int id;
                 CCPoint offset;
@@ -96,7 +141,7 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
         auto pasted = ui->pasteObjects(payload, false, false);
         auto placed = pasted ? static_cast<int>(pasted->count()) : 0;
         auto message = fmt::format(
-            "Added {} small accents around your selection. Use Undo if you want to revert this pass.",
+            "Added {} small accents around your selection. Use Undo to revert this pass.",
             placed
         );
         FLAlertLayer::create("MationBuild", message.c_str(), "Close")->show();
