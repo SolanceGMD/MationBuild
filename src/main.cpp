@@ -47,7 +47,7 @@ class $modify(MationBuildEditorLayer, LevelEditorLayer) {
             importMenu->setID("solance.mationbuild/import-menu");
             importMenu->setPosition({winSize.width - 152.f, winSize.height - 42.f});
             auto importSprite = ButtonSprite::create(
-                "Import", 64, 0, 0.65f, true, "goldFont.fnt", "GJ_button_01.png", 30.f
+                "Import", 64, 0, 0.65f, true, "goldFont.fnt", "GJ_button_01.png", 0.f
             );
             if (importSprite) {
                 auto importButton = CCMenuItemSpriteExtra::create(
