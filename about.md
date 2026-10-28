@@ -1,5 +1,5 @@
 # MationBuild
-**By Solance Good**
+**By Solance**
 
 MationBuild is a Geometry Dash editor companion project focused on accelerating level decoration with reusable styles and community-shared templates. The goal is to help creators iterate faster while retaining control over the final design.
 
